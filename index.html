@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Time Display with Stopwatch</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+    }
+    .time, .stopwatch {
+      font-size: 2.5em;
+      color: #333;
+      margin-bottom: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1em;
+      cursor: pointer;
+      margin: 5px;
+    }
+    .buttons {
+      display: flex;
+      gap: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="time" id="time"></div>
+<button onclick="toggleFormat()">Toggle 24-Hour / 12-Hour Format</button>
+
+<div class="stopwatch" id="stopwatch">00:00:00</div>
+<div class="buttons">
+  <button onclick="startStopwatch()">Start</button>
+  <button onclick="stopStopwatch()">Stop</button>
+  <button onclick="resetStopwatch()">Reset</button>
+</div>
+
+<script>
+  let is24HourFormat = true;
+  let stopwatchInterval;
+  let stopwatchTime = 0;
+
+  function updateTime() {
+    const now = new Date();
+    let hours = now.getHours();
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+
+    if (!is24HourFormat) {
+      const suffix = hours >= 12 ? "PM" : "AM";
+      hours = hours % 12 || 12;
+      document.getElementById("time").textContent = `${hours}:${minutes}:${seconds} ${suffix}`;
+    } else {
+      document.getElementById("time").textContent = `${String(hours).padStart(2, '0')}:${minutes}:${seconds}`;
+    }
+  }
+
+  function toggleFormat() {
+    is24HourFormat = !is24HourFormat;
+    updateTime();
+  }
+
+  function startStopwatch() {
+    if (!stopwatchInterval) {
+      stopwatchInterval = setInterval(() => {
+        stopwatchTime++;
+        const hours = String(Math.floor(stopwatchTime / 3600)).padStart(2, '0');
+        const minutes = String(Math.floor((stopwatchTime % 3600) / 60)).padStart(2, '0');
+        const seconds = String(stopwatchTime % 60).padStart(2, '0');
+        document.getElementById("stopwatch").textContent = `${hours}:${minutes}:${seconds}`;
+      }, 1000);
+    }
+  }
+
+  function stopStopwatch() {
+    clearInterval(stopwatchInterval);
+    stopwatchInterval = null;
+  }
+
+  function resetStopwatch() {
+    clearInterval(stopwatchInterval);
+    stopwatchInterval = null;
+    stopwatchTime = 0;
+    document.getElementById("stopwatch").textContent = "00:00:00";
+  }
+
+  setInterval(updateTime, 1000);
+  updateTime(); // Initial call to display time immediately
+</script>
+
+</body>
+  </html>
