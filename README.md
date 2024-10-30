@@ -11,4 +11,7 @@ Features:
 
 « it's have Stopwatch to start, stop, reset
 
-The Project Source Code Available in https://codepen.io/Calestial-Ashley/pen/MWNVxxE
+The Source Code Available in Various Platforms
+
+ - Codepen: https://codepen.io/Calestial-Ashley/pen/MWNVxxE
+ - GitHub: https://github.com/CalestialAshley35/Time.git
