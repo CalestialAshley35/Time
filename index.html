@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Elegant Time Display with Stopwatch</title>
+  <title>Elegant Time Display with Stopwatch and Alarm</title>
   <style>
     * {
       margin: 0;
@@ -37,7 +37,7 @@
     .stopwatch {
       color: #ffda79;
     }
-    .buttons, .format-btn {
+    .buttons, .format-btn, .alarm-btn {
       display: flex;
       justify-content: center;
       gap: 15px;
@@ -59,6 +59,15 @@
       transform: translateY(-2px);
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     }
+    .alarm-input {
+      font-size: 1.2em;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: 1px solid #ffd369;
+      background-color: #f5f5f5;
+      color: #333;
+    }
   </style>
 </head>
 <body>
@@ -75,12 +84,19 @@
     <button onclick="stopStopwatch()">Stop</button>
     <button onclick="resetStopwatch()">Reset</button>
   </div>
+
+  <!-- Alarm section -->
+  <div class="alarm">
+    <input type="time" id="alarmTime" class="alarm-input" />
+    <button onclick="setAlarm()">Set Alarm</button>
+  </div>
 </div>
 
 <script>
   let is24HourFormat = true;
   let stopwatchInterval;
   let stopwatchTime = 0;
+  let alarmTime = null; // Store alarm time
 
   function updateTime() {
     const now = new Date();
@@ -94,6 +110,12 @@
       document.getElementById("time").textContent = `${hours}:${minutes}:${seconds} ${suffix}`;
     } else {
       document.getElementById("time").textContent = `${String(hours).padStart(2, '0')}:${minutes}:${seconds}`;
+    }
+
+    // Check for alarm
+    if (alarmTime && `${String(hours).padStart(2, '0')}:${minutes}` === alarmTime) {
+      alert("Done!"); // Show alert when alarm time matches
+      alarmTime = null; // Clear alarm after it's triggered
     }
   }
 
@@ -124,6 +146,16 @@
     stopwatchInterval = null;
     stopwatchTime = 0;
     document.getElementById("stopwatch").textContent = "00:00:00";
+  }
+
+  function setAlarm() {
+    const alarmInput = document.getElementById("alarmTime").value;
+    if (alarmInput) {
+      alarmTime = alarmInput; // Store the selected alarm time
+      alert(`Alarm set for ${alarmTime}`);
+    } else {
+      alert("Please select a time for the alarm.");
+    }
   }
 
   setInterval(updateTime, 1000);
