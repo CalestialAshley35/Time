@@ -9,10 +9,12 @@ Features:
 
 « It's count seconds of times and it's shows minutes and the hour and count seconds
 
+« it's have an button to set alarms and when the alarm done its shows "Done!"
+
 « it's have Stopwatch to start, stop, reset
 
-The Source Code Available in Various Platforms
+‹ The Source Code Available in Various Platforms
 
- - Codepen: https://codepen.io/Calestial-Ashley/pen/MWNVxxE
- - GitHub: https://github.com/CalestialAshley35/Time.git
+ - Codepen: [Codepen](https://codepen.io/Calestial-Ashley/pen/MWNVxxE)
+ - GitHub: [GitHub](https://github.com/CalestialAshley35/Time.git)
  - Website is available at: [Time](https://simple-clock-.glitch.me)
